@@ -5,7 +5,9 @@ const { User } = require('../../models');
 router.get('/', (req, res) => {
     // Access our User model and run .findAll() method)
     // User.findAll() is the JavaScript equivalent of the following SQL query: SELECT * FROM users;
-    User.findAll()
+    User.findAll({
+        attributes: { exclude: ['password']}
+    })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
         console.log(err);

@@ -20,6 +20,7 @@ router.get('/:id', (req, res) => {
     // We want to find a user where its id value equals whatever req.params.id is, 
     // much like the following SQL query: SELECT * FROM users WHERE id = 1;
     User.findOne({
+        attributes: { exclude: ['password'] },
         where: {
             id: req.params.id
         }
@@ -75,7 +76,8 @@ router.put('/:id', (req, res) => {
     // SET username = "Lernantino", email = "lernantino@gmail.com", password = "newPassword1234"
     // WHERE id = 1;
     User.update(req.body, {
-      where: {
+        individualHooks: true,    
+        where: {
         id: req.params.id
       }
     })
